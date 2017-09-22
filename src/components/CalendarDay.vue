@@ -1,6 +1,6 @@
 <template>
 
-  <div class="day">{{ day.format( 'D' ) }}</div>
+  <div :class="classObject">{{ day.format( 'D' ) }}</div>
 
 </template>
 
@@ -10,6 +10,18 @@ export default {
   data() {
     return {
 
+    }
+  },
+  computed: {
+
+    // It is possible to create an object of classes 
+    // that can be dynamically applied based on booleans.
+    // Here, we add a class to todays date by checking for 'today'
+    classObject() {
+      return {
+        day:   true,
+        today: this.day.isSame( this.$moment(), 'day' )
+      }
     }
   }
 

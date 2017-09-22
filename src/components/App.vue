@@ -32,7 +32,7 @@ import CalendarDay from './CalendarDay.vue'
 export default {
   data() {
     return {
-      month: 4,
+      month: 9,
       year: 2017
     }
   },
