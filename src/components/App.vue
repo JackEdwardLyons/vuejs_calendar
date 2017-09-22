@@ -1,15 +1,23 @@
 <template>
   <div>
-    <div v-for="day in days">{{ day }}</div>
+    <div v-for="( week, i ) in weeks">
+      Week {{ i + 1 }}: 
+      <CalendarDay v-for="day in week" :day="day">{{ day }}</CalendarDay>
+    </div>
   </div>
 </template>
 <script>
+import CalendarDay from './CalendarDay.vue'
+
 export default {
   data() {
     return {
       month: 5,
       year: 2017
     }
+  },
+  components: {
+    CalendarDay
   },
   computed: {
     days() {
@@ -28,7 +36,7 @@ export default {
         // months are zero-indexed, hence why we + 1
       } while( ( currentDay.month() + 1 ) === this.month );
 
-      // Add previous days to start by resetting currentDay to beginning.
+      // Reset currentDay to beginning of array.
       currentDay = this.$moment( days[0] );
 
       const SUDNAY = 0;
@@ -36,10 +44,11 @@ export default {
 
       if ( currentDay.day() !== MONDAY ) {
         // To get a complete calendar grid of 7 across, we may have to add
-        // in days from the previous month. We do this by resetting the
-        // currentDay variable and subtracting a day, then adding that day
-        // to the front of the days array. When the currentDay is MONDAY
-        // we stop because that marks the beginning of the calendar.
+        // in days from the previous month. This is done by resetting the
+        // currentDay variable to the first item in the array and subtracting 
+        // a day, which brings us to the end of the previous month. We then add
+        // that day to the front of the days array. When the currentDay is MONDAY
+        // we stop subtracting because that marks the beginning of the calendar.
         do {
           currentDay = this.$moment( currentDay ).subtract(1, 'days');
           days.unshift( currentDay );
@@ -48,7 +57,7 @@ export default {
       } // endif; 
 
       // Add next month's days to calendar by 
-      // resetting currentDay to the end of the array.
+      // setting currentDay to the end of the array.
       currentDay = this.$moment( days[days.length - 1] );
 
       if ( currentDay.day() !== SUDNAY ) {
@@ -62,7 +71,23 @@ export default {
       } // endif;
 
       // return an array of all the current days of the month.
+      // There should be 35 items in the array.
+      // console.log( days.length );
       return days;
+    },
+    weeks() {
+      let weeks = [];
+      let week  = [];
+      
+      for ( let day of this.days ) {
+        week.push( day );
+        if ( week.length === 7 ) {
+          weeks.push( week );
+          week = [];
+        }
+      }
+      // Return blocks of 7 days per week.
+      return weeks;
     }
   },
   created() {
