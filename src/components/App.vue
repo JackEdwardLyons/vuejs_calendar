@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <div v-for="( week, i ) in weeks">
-      Week {{ i + 1 }}: 
-      <CalendarDay v-for="day in week" :day="day">{{ day }}</CalendarDay>
+  <div id="calendar">
+    <div v-for="( week, i ) in weeks" class="calendar-week">
+      <CalendarDay v-for="day in week" :day="day"></CalendarDay>
     </div>
   </div>
 </template>
@@ -12,7 +11,7 @@ import CalendarDay from './CalendarDay.vue'
 export default {
   data() {
     return {
-      month: 5,
+      month: 4,
       year: 2017
     }
   },

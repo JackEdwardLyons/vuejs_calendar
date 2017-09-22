@@ -1,5 +1,7 @@
 <template>
 
+  <div class="day">{{ day.format( 'D' ) }}</div>
+
 </template>
 
 <script>
