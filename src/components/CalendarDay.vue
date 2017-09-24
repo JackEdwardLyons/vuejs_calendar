@@ -7,16 +7,12 @@
 <script>
 export default {
   props: [ 'day' ], 
-  data() {
-    return {
-
-    }
-  },
   methods: {
     captureClick( event ) {
       const X = event.clientX;
       const Y = event.clientY;
-      return this.$store.commit( 'eventFormPosition', { X, Y } );
+      this.$store.commit( 'eventFormPosition', { X, Y } );
+      this.$store.commit( 'eventFormActive', true );
     }
   },
   computed: {
