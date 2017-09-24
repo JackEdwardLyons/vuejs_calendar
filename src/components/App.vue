@@ -36,18 +36,22 @@
 
     </div><!-- end #calendar -->
 
+    <event-form></event-form>  
+
   </div><!-- end main wrapper -->
 
 </template>
 
 <script>
-import CalendarDay from './CalendarDay.vue';
+import CalendarDay  from './CalendarDay.vue';
 import CurrentMonth from './CurrentMonth.vue';
+import EventForm    from './EventForm.vue';
 
 export default {
   components: {
     CalendarDay, 
-    CurrentMonth
+    CurrentMonth,
+    EventForm
   },
   computed: {
     // We can obtain the currentYeary and currentMonth 
