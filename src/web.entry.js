@@ -2,9 +2,8 @@
 import Vue from 'vue';
 import './style.scss';
 
-// Import Vuex
-import Vuex from 'vuex';
-Vue.use( Vuex );
+// Import Vuex Store
+import store from './store';
 
 // import Moment for time management
 import moment from 'moment-timezone';
@@ -23,11 +22,5 @@ new Vue({
   components: {
     App
   },
-  // Vuex store
-  store: {
-    state: {
-      currentYear: 2017,
-      currentMonth: 2
-    }
-  }
+  store
 });
