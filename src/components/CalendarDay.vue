@@ -1,6 +1,6 @@
 <template>
 
-  <div :class="classObject">{{ day.format( 'D' ) }}</div>
+  <div :class="classObject" @click="captureClick">{{ day.format( 'D' ) }}</div>
 
 </template>
 
@@ -10,6 +10,13 @@ export default {
   data() {
     return {
 
+    }
+  },
+  methods: {
+    captureClick( event ) {
+      const X = event.clientX;
+      const Y = event.clientY;
+      return this.$store.commit( 'eventFormPosition', { X, Y } );
     }
   },
   computed: {
