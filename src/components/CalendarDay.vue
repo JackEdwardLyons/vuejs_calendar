@@ -13,14 +13,14 @@ export default {
     }
   },
   computed: {
-
-    // It is possible to create an object of classes 
-    // that can be dynamically applied based on booleans.
-    // Here, we add a class to todays date by checking for 'today'
+    // It is possible to create an object of CSS classes 
+    // that can be dynamically applied based on boolean values.
+    // Here, we add a class to todays date by checking for 'today'.
     classObject() {
       return {
         day:   true,
-        today: this.day.isSame( this.$moment(), 'day' )
+        today: this.day.isSame( this.$moment(), 'day' ),
+        past: this.day.isBefore( this.$moment(), 'day' )
       }
     }
   }

@@ -30,16 +30,18 @@
 import CalendarDay from './CalendarDay.vue'
 
 export default {
-  data() {
-    return {
-      month: 9,
-      year: 2017
-    }
-  },
   components: {
     CalendarDay
   },
   computed: {
+    // We can obtain the currentYeary and currentMonth 
+    // from the Vuex store ( in web.entry.js ).
+    month() {
+      return this.$store.state.currentMonth;
+    },
+    year() {
+      return this.$store.state.currentYear;
+    },
     days() {
       // The aim here is to create a Calendar Grid of 7 x 5.
       let days = [];
