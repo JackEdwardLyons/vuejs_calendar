@@ -54,7 +54,7 @@ export default {
     EventForm
   },
   computed: {
-    // We can obtain the currentYeary and currentMonth 
+    // We can obtain the currentYear and currentMonth 
     // from the Vuex store ( in web.entry.js ).
     month() {
       return this.$store.state.currentMonth;

@@ -3,12 +3,12 @@
 
     <h4>Add an event</h4>
     <button id="close-button" @click="close"> &#10005; </button>
+    
   </div>
 </template>
 
 <script>
 export default {
-
   methods: {
     close() {
       this.$store.commit( 'eventFormActive', false );
