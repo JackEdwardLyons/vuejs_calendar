@@ -5,7 +5,6 @@ import './style.scss';
 // Import Vuex Store
 import store from './store';
 
-// import Moment for time management
 import moment from 'moment-timezone';
 moment.tz.setDefault('UTC');
 // Create an instance of moment on the Vue prototype

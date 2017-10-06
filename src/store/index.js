@@ -3,6 +3,10 @@ import Vue  from 'vue';
 import Vuex from 'vuex';
 Vue.use( Vuex );
 
+// import Moment for time management
+import moment from 'moment-timezone';
+moment.tz.setDefault('UTC');
+
 // Vuex store
 export default new Vuex.Store({
   state: {
@@ -10,7 +14,12 @@ export default new Vuex.Store({
     currentMonth: 2,
     eventFormPosX: 0,
     eventFormPosY: 0,
-    eventFormActive: false
+    eventFormActive: false,
+    events: [],
+    // You can only set a date once you have entered the eventForm
+    // Thus, when you click on a day, the eventForm will open
+    // and the date will be set accordingly.
+    eventFormDate: null
   },
   mutations: {
     setCurrentMonth( state, payload ) {
@@ -25,6 +34,15 @@ export default new Vuex.Store({
     },
     eventFormActive( state, payload ) {
       state.eventFormActive = payload;
+    },
+    addEvent( state, payload ) {
+      state.events.push({
+        description: payload,
+        date: state.eventFormDate
+      });
+    },
+    eventFormDate( state, payload ) {
+      state.eventFormDate = payload;
     }
   }
 });

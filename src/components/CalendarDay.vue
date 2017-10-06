@@ -3,7 +3,9 @@
     <div :class="classObject" @click="captureClick">
       {{ day.format( 'D' ) }}
       <ul class="event-list">
+
         <li v-for="event in events">{{ event.description }}</li>
+
       </ul>
     </div>
 
@@ -19,18 +21,13 @@ export default {
       const Y = event.clientY;
       this.$store.commit( 'eventFormPosition', { X, Y } );
       this.$store.commit( 'eventFormActive', true );
+      // When the user clicks a day, the event Date is passed to store.
+      this.$store.commit( 'eventFormDate', this.day );
     }
   },
   computed: {
     events() {
-
-      let mockData = [
-        { description: 'Random Event1', date: this.$moment( '2017-02-02', 'YYYY-MM-DD' ) },
-        { description: 'Random Event2', date: this.$moment( '2017-03-02', 'YYYY-MM-DD' ) },
-        { description: 'Random Event3', date: this.$moment( '2017-10-02', 'YYYY-MM-DD' ) }
-      ];
-      return mockData.filter( event => event.date.isSame( this.day, 'day' ) );
-
+      return this.$store.state.events.filter( event => event.date.isSame( this.day, 'day' ) );
     },
     // It is possible to create an object of CSS classes 
     // that can be dynamically applied based on boolean values.
