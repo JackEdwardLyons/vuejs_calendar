@@ -19,7 +19,7 @@ export default new Vuex.Store({
     // You can only set a date once you have entered the eventForm
     // Thus, when you click on a day, the eventForm will open
     // and the date will be set accordingly.
-    eventFormDate: null
+    eventFormDate: moment()
   },
   mutations: {
     setCurrentMonth( state, payload ) {
