@@ -3,7 +3,7 @@
     <div :class="classObject" @click="captureClick">
       {{ day.format( 'D' ) }}
       <ul class="event-list">
-
+        
         <li v-for="event in events">{{ event.description }}</li>
 
       </ul>

@@ -3,7 +3,7 @@
 
     <h4>Add an event</h4>
     <div class="text">
-      <input type="text" v-model="description">
+      <input v-focus type="text" v-model="description" placeholder="Dinner at Mum's">
     </div>
     <div class="buttons">
       <button @click="create()">Create</button>
@@ -25,9 +25,12 @@ export default {
                this.$store.commit('eventFormActive', false);
            },
             create() {
-                this.$store.commit('addEvent', this.description);
-                this.description = '';
-                this.close();
+                if ( this.description !== '' ) {
+                    this.$store.commit('addEvent', this.description);
+                    this.description = '';
+                    this.$store.commit('eventFormActive', false);
+                    this.close();
+                }
             }
         },
         computed: {
@@ -40,10 +43,15 @@ export default {
             left() {
                 return `${this.$store.state.eventFormPosX}px`;
             }
+        },
+        directives: {
+            focus: {
+                // create update Hook to check when calendar box is clicked
+                // then focus on the clicked element ( text-area ).
+                update(el) { 
+                    el.focus(); 
+                }
+            }
         }
     }
 </script>
-
-<style>
-
-</style>
