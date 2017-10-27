@@ -7,6 +7,8 @@ Vue.use( Vuex );
 import moment from 'moment-timezone';
 moment.tz.setDefault('UTC');
 
+import Axios from 'axios';
+
 // Vuex store
 export default new Vuex.Store({
   state: {
@@ -36,13 +38,21 @@ export default new Vuex.Store({
       state.eventFormActive = payload;
     },
     addEvent( state, payload ) {
-      state.events.push({
-        description: payload,
-        date: state.eventFormDate
-      });
+      state.events.push( payload );
     },
     eventFormDate( state, payload ) {
       state.eventFormDate = payload;
+    }
+  },
+  actions: {
+    addEvent( context, payload ) {
+      console.log( context ); // access to mutations and the state
+      let obj = {
+        description: payload,
+        date: context.state.eventFormDate
+      }
+      context.commit( 'addEvent', obj );
+      Axios.post( '/add_event', obj );
     }
   }
 });
