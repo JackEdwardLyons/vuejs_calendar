@@ -33,10 +33,13 @@ export default {
     // that can be dynamically applied based on boolean values.
     // Here, we add a class to todays date by checking for 'today'.
     classObject() {
+      let eventFormDate   = this.$store.state.eventFormDate;
+      let eventFormActive = this.$store.state.eventFormActive;
       return {
         day:   true,
         today: this.day.isSame( this.$moment(), 'day' ),
-        past:  this.day.isBefore( this.$moment(), 'day' )
+        past:  this.day.isBefore( this.$moment(), 'day' ),
+        active: eventFormDate.isSame( this.day, 'day' ) && eventFormActive
       }
     }
   }
