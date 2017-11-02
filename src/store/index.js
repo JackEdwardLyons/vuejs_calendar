@@ -45,14 +45,32 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    /* 
+       Actions are similar to mutations, the differences being that:
+       Instead of mutating the state, actions commit mutations.
+       Actions can contain arbitrary asynchronous operations.
+    */
     addEvent( context, payload ) {
-      console.log( context ); // access to mutations and the state
-      let obj = {
-        description: payload,
-        date: context.state.eventFormDate
-      }
-      context.commit( 'addEvent', obj );
-      Axios.post( '/add_event', obj );
+
+      return new Promise( ( resolve, reject ) => {
+        console.log( context ); // Provides access to mutations and the state ( store )
+        
+        let obj = {
+          description: payload,
+          date: context.state.eventFormDate
+        }
+
+        Axios.post( '/add_event', obj ).then( response => {
+          if ( response.status === 200 ) {
+            // Don't update the state until we have 
+            // successfully pushed to the server.
+            context.commit( 'addEvent', obj );
+            resolve();
+          } else {
+            reject();
+          }
+        });
+      }); 
     }
   }
 });

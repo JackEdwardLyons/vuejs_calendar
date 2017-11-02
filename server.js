@@ -14,10 +14,11 @@ app.get('/', (req, res) => {
 
 });
 
-app.use( require( 'body-parser' ).json() );
+/* Populate the Vuex store with events */
+var events = [];
 
-app.post( '/add_event', ( req, res ) => {
-  var events = [];
+app.use( require( 'body-parser' ).json() );
+app.post( '/add_event', ( req, res ) => { 
   events.push( req.body );
   res.send( events );
 })

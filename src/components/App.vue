@@ -1,19 +1,13 @@
 <template>
 
   <div>
-
     <header id="header">
-
       <div>
         <h1>Vue.js Calendar</h1>
       </div>
-
       <div>
-
         <current-month></current-month>
-
       </div>
-
     </header><!-- end #header -->
 
     <div id="day-bar">
@@ -27,17 +21,12 @@
     </div>
 
     <div id="calendar">
-
       <div v-for="( week, i ) in weeks" class="calendar-week">
-        
         <CalendarDay v-for="day in week" :day="day"></CalendarDay>
-
       </div><!-- end .calendar-week -->
-
     </div><!-- end #calendar -->
 
     <event-form></event-form>  
-
   </div><!-- end main wrapper -->
 
 </template>

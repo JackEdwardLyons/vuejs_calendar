@@ -31,10 +31,13 @@ export default {
            },
             create() {
                 if ( this.description !== '' ) {
-                    this.$store.dispatch('addEvent', this.description);
-                    this.description = '';
-                    this.$store.commit('eventFormActive', false);
-                    this.close();
+                    // When dispatching an event, the payload is synced with the 
+                    // addEvent action in the actions object.
+                    this.$store.dispatch( 'addEvent', this.description).then( () => {
+                        this.description = '';
+                        this.$store.commit( 'eventFormActive', false );
+                        this.close();
+                    });
                 }
             }
         },
