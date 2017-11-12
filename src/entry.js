@@ -1,7 +1,10 @@
 /* 
  * Shared file between web-entry.js & node-entry.js
  * This file contains all the 'common logic'
+ * There are now two Webpack bundles being run:
+ * - node.bundle.js & web.bundle.js
  */
+
 // Import Vue
 import Vue from 'vue';
 // Import Vuex Store

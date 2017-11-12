@@ -17,11 +17,27 @@ let events = [
   { description: 'Random event 3', date: moment('2017-03-14', 'YYYY-MM-DD') }
 ];
 
+// Create reference to Server Side Renderer variable
+let renderer;
+
+// index.html
 app.get('/', (req, res) => {
   let template = fs.readFileSync(path.resolve('./index.html'), 'utf-8');
   let contentMarker = '<!-- APP -->';
-  // The mock data now begins on the server.
-  res.send(template.replace(contentMarker, `<script>var __INITIAL_STATE__ = ${ serialize(events) }</script>`));
+
+  if ( renderer ) {
+    renderer.renderToString({}, function(err, html) {
+      if ( err ) {
+        console.log(err);
+      } else {
+        console.log( html );
+        // The mock data now begins on the server.
+        res.send(template.replace(contentMarker, `<script>var __INITIAL_STATE__ = ${ serialize(events) }</script>\n${ html }`));
+      }
+    });
+  } else {
+    res.send( '<p>Awaiting compilation... </p>')
+  }
 });
 
 app.use( require( 'body-parser' ).json() );
@@ -37,6 +53,14 @@ if (process.env.NODE_ENV === 'development') {
   const reload = require('reload');
   const reloadServer = reload(server, app);
   require('./webpack-dev-middleware').init(app);
+  // Create a Server Side Bundle
+  require( './webpack-server-compiler' ).init( function( bundle ) {
+    // Pass in the Bundle and take the Vue Instance to output the correct 
+    // Server Rendered version of the app.
+    // NPM: https://www.npmjs.com/package/vue-server-renderer
+    // Guide: https://ssr.vuejs.org/en/
+    renderer = require('vue-server-renderer').createBundleRenderer(bundle);
+  })
 }
 
 server.listen(process.env.PORT, function () {
