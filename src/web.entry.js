@@ -32,5 +32,25 @@ new Vue({
   components: {
     App
   },
-  store
+  store,
+  // Render function to create elements and meta data
+  // This means you can effectively skip the process of
+  // creating an HTML element in the index.html file.
+  render( createElement ) {
+    let vnode = createElement(
+      // 1st argument is the element
+      'div',
+      // 2nd argument are the attributes & meta
+      { attrs: { id: 'app' } },
+      // 3drd argument are the child nodes
+      [
+        createElement( 'app' )
+      ]
+    )
+    // We cannot remove the 'el: #app' from above
+    // as Vue needs to mount somewhere on the DOM
+    // that isn't the BODY tag. This render function
+    // just replaces the element on load.
+    return vnode;
+  }
 });
