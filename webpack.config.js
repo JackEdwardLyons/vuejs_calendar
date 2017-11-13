@@ -48,7 +48,7 @@ var baseConfig = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.common.js',
+      'vue$': 'vue/dist/vue.runtime.common.js',
     }
   },
   devServer: {
