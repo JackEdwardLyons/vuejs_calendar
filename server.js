@@ -30,7 +30,6 @@ app.get('/', (req, res) => {
       if ( err ) {
         console.log(err);
       } else {
-        console.log( html );
         // The mock data now begins on the server.
         res.send(template.replace(contentMarker, `<script>var __INITIAL_STATE__ = ${ serialize(events) }</script>\n${ html }`));
       }

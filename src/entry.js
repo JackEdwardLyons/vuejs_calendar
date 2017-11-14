@@ -15,23 +15,12 @@ moment.tz.setDefault('UTC');
 // so all components can access the moment library.
 Object.defineProperty(Vue.prototype, '$moment', { get() { return this.$root.moment; }});
 
-
 import App from './components/App.vue';
-// Return some mock data as part of the initial state
-let events = window.__INITIAL_STATE__.map(event => {
-  return {
-    description: event.description,
-    date: moment(event.date)
-  }
-});
-
-
 // Export Vue instance to run on client side.
 export default function( events ) {
 
   // Merge an object of events into the store state
   let initialState = Object.assign( {}, store.state, { events } );
-  console.log( initialState );
   // Begin with a mock data state
   store.replaceState( initialState );
 
